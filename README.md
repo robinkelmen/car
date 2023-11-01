@@ -37,8 +37,8 @@ Use the directional keys on your keyboard to control the self-driving car. You c
 
 ## Author
 
-- Your Name
-- Contact Information
+- Robin Kelmen
+- kelmenr@gmail.com
 
 ## License
 
