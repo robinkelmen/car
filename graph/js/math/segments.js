@@ -12,7 +12,7 @@ class Segment {
 
     includes = (point) => {
 
-        return this.p1.equals(point) && this.p2.equals(point);
+        return this.p1.equals(point) || this.p2.equals(point);
     }
     draw = (ctx, width = 2, color = "black") => {
         ctx.beginPath();

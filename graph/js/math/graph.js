@@ -29,6 +29,9 @@ class Graph {
             this.segments.splice(idx, 1);
         }
     }
+    removeSegment = (segment) => {
+        this.segments.splice(this.segments.indexOf(segment), 1);
+    }
 
     removePoint = (point) => {
 
@@ -37,39 +40,37 @@ class Graph {
         }
 
 
-        if (this.containsPoint(point)) {
-            const idx = this.points.indexOf(point);
-            const segs = this.findSegmentsByPoint(point);
 
-            segs.forEach(seg => {
-                this.segments.splice(this.segments.indexOf(seg), 1);
-            })
-            this.points.splice(idx, 1);
-        }
+        const idx = this.points.indexOf(point);
+        const segs = this.findSegmentsByPoint(point);
+        console.log(segs);
+
+        segs.forEach(seg => {
+            this.removeSegment(seg);
+        })
+        this.points.splice(idx, 1);
+
     }
 
     findSegmentsByPoint = (point) => {
-        let foundSegments = [];
-        this.segments.forEach(seg => {
-
+        const segs = [];
+        for (const seg of this.segments) {
             if (seg.includes(point)) {
-                foundSegments.push(seg);
+                segs.push(seg);
             }
-
-        });
-
-        return foundSegments;
+        }
+        return segs;
     }
 
     containsSegment = (segment) => {
-        this.segments.find(seg => {
+        return this.segments.find(seg => {
             seg.equals(segment);
         })
     }
     containsPoint = (point) => {
-        this.points.find(p => {
-            p.equals(point);
-        })
+        return this.points.find(p =>
+            p.equals(point)
+        );
     }
     draw = (ctx) => {
 

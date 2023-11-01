@@ -13,6 +13,41 @@ class Rays {
 
     }
 
+    checkPolygon = (polygons) => {
+        const intersectionPoints = [];
+
+        for (let i = 0; i < this.rayCount; i++) {
+            const ray = this.rays[i];
+
+            polygons.forEach(polygon => {
+                const edges = polygon.carPolygon.edges;
+
+
+                for (let j = 0; j < edges.length; j++) {
+                    const edge = edges[j];
+
+                    const point = checkIntersection(
+                        ray[0].x,
+                        ray[0].y,
+                        ray[1].x,
+                        ray[1].y,
+                        edge[0].x,
+                        edge[0].y,
+                        edge[1].x,
+                        edge[1].y
+                    );
+
+                    console.log(point)
+                    if (point) {
+                        intersectionPoints.push(point);
+                    }
+                }
+            });
+        }
+
+        return intersectionPoints;
+    }
+
     checkEdges = (roadBorders) => {
 
         this.intersectionPoints = [];
@@ -47,9 +82,16 @@ class Rays {
         }
 
     }
-    update = (roadBorders) => {
+    update = (roadBorders, traffic = []) => {
         this.pointRays();
         this.checkEdges(roadBorders);
+        const polyIntersections = this.checkPolygon(traffic);
+
+        if (polyIntersections) {
+            //console.log(polyIntersections)
+            this.intersectionPoints.concat(polyIntersections);
+        }
+
 
     }
 

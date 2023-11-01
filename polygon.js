@@ -4,6 +4,35 @@ class Polygon {
         this.y = y;
         this.width = width;
         this.height = height;
+        this.edges = this.getLines();
+    }
+
+    getLines() {
+        const halfWidth = this.width / 2;
+        const halfHeight = this.height / 2;
+
+        const x1 = this.x - halfWidth;
+        const y1 = this.y - halfHeight;
+
+        const x2 = this.x + halfWidth;
+        const y2 = this.y - halfHeight;
+
+        const x3 = this.x + halfWidth;
+        const y3 = this.y + halfHeight;
+
+        const x4 = this.x - halfWidth;
+        const y4 = this.y + halfHeight;
+
+
+
+        return [
+            [{ x: x1, y: y1 }, { x: x2, y: y2 }],
+
+            [{ x: x2, y: y2 }, { x: x3, y: y3 }],
+
+            [{ x: x3, y: y3 }, { x: x4, y: y4 }],
+            [{ x: x4, y: y4 }, { x: x1, y: y1 }]
+        ];
     }
 
     isAABBCollisionWithEdges = (other) => {
@@ -53,10 +82,11 @@ class Polygon {
     // Function to check collision with other polygons
     isCollidingWithPolygons = (otherPolygons) => {
         for (const polygon of otherPolygons) {
-            if (this.isAABBCollision(polygon)) {
-                // Handle collision with the polygon
+            if (this.isAABBCollisionWithEdges(polygon)) {
+                return true;
             }
         }
+        return false;
     }
 
     setPos = (x, y) => {
@@ -75,6 +105,8 @@ class Polygon {
         );
 
         ctx.fill();
+
+        this.edges = this.getLines();
     }
 }
 

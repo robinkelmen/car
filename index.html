@@ -10,8 +10,40 @@
 </head>
 
 <body>
-    <canvas id="myCanvas" width="800" height="600"></canvas>
 
+   
+
+    <div id="snapshot-container">
+        <div id="snapshot-image-container">
+            <img id="snapshot-image" width="100" height="100">
+            
+        </div>
+        
+    </div>
+
+    <div id="direction-prediction">Predicted Direction: Unknown</div>
+
+    <div id="car-stats" class="stats">
+        <p>X: <span id="car-x">0</span></p>
+        <p>Y: <span id="car-y">0</span></p>
+        <p>Angle: <span id="car-angle">0</span></p>
+        <p>Damage: <span id="car-damage">0</span></p>
+        <p>Car Orientation: <span id="car-orientation"></span></p>
+
+    </div>
+
+  
+    <canvas id="myCanvas" width="800" height="600"></canvas>
+    <canvas id="networkCanvas"></canvas>
+  
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.3.2/math.js"></script>
+
+    <script src="layer.js"></script>
+    <script src="network.js"></script>
+    <script src="networkvisualizer.js"></script>
+    <script src="vision.js"></script>
     <script src="polygon.js"></script>
     <script src="vector2d.js"></script>
     <script src="utils.js"></script>
@@ -20,6 +52,11 @@
     <script src="car.js"></script>
     <script src="road.js"></script>
     <script src="main.js"></script>
+
+
+
+
+    
 </body>
 
 </html>

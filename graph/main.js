@@ -11,9 +11,7 @@ canvas.width = width;
 canvas.height = height;
 const ctx = canvas.getContext("2d");
 
-// You can start drawing on the canvas here
-ctx.fillStyle = "lightblue";
-ctx.fillRect(0, 0, canvas.width, canvas.height);
+
 
 
 
@@ -42,4 +40,20 @@ const segments = [
 ]
 const graph = new Graph(points, segments);
 
-graph.draw(ctx);
+const graphEditor = new GraphEditor(canvas, graph);
+
+
+
+
+animate();
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "lightblue";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    graphEditor.display();
+
+    requestAnimationFrame(animate);
+}

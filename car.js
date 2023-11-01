@@ -3,7 +3,7 @@ class Car {
 
 
 
-    constructor(x, y, width, height) {
+    constructor(x, y, width, height, controlType = "KEYS", maxSpeed = 3) {
 
         this.x = x;
         this.y = y;
@@ -11,7 +11,7 @@ class Car {
         this.height = height;
 
 
-        this.maxSpeed = 4;
+        this.maxSpeed = maxSpeed;
         this.acc = 0.2;
         this.speed = 0;
         this.friction = 0.05;
@@ -26,10 +26,17 @@ class Car {
 
         this.carColor = "red";
 
-        this.controls = new Controls();
-        this.rays = new Rays(this, 10);
 
+
+        this.controls = new Controls(controlType);
+
+
+        if (controlType == "KEYS") {
+            this.rays = new Rays(this, 10);
+        }
         this.carPolygon = new Polygon(x, y, width, height);
+
+
 
 
 
@@ -88,7 +95,9 @@ class Car {
 
     draw = (ctx) => {
 
-        this.rays.draw(ctx);
+        if (this.rays) {
+            this.rays.draw(ctx);
+        }
 
         ctx.save();
         ctx.translate(this.x, this.y);
@@ -104,15 +113,17 @@ class Car {
     }
 
 
-    update = (roadBorders) => {
+    update = (roadBorders, traffic = []) => {
 
-        this.rays.update(roadBorders);
+        if (this.rays) {
+            this.rays.update(roadBorders, traffic);
+        }
 
         if (this.health > 0) {
             this.move();
         }
 
-        this.checkBorderCollision(roadBorders);
+        this.checkBorderCollision(roadBorders, traffic);
 
 
 
@@ -121,9 +132,14 @@ class Car {
 
 
     }
+    checkCarCollision = () => {
 
-    checkBorderCollision = (roadBorders) => {
-        const isColliding = this.carPolygon.isCollidingWithRoad(roadBorders);
+
+    }
+
+    checkBorderCollision = (roadBorders, otherCars = []) => {
+        const isColliding = this.carPolygon.isCollidingWithRoad(roadBorders) ||
+            this.carPolygon.isCollidingWithPolygons(otherCars);
 
         if (isColliding && !this.isColliding) {
             this.isColliding = true; // Set collision flag
