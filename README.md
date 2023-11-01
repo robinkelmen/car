@@ -2,7 +2,7 @@
 
 ![Self-Driving Car](Car.png)
 
-This project is a self-driving car simulation that incorporates a neural network for decision-making and provides visualization of the network's behavior. The car can navigate its environment autonomously using the neural network.
+This project is a self-driving car simulation that incorporates a neural network for decision-making and provides visualization of the network's behavior. The car can navigate its environment autonomously using the neural network.I am working on a spacial graph for the car to traverse. This is also inspired by Radu. 
 
 ## Getting Started
 
